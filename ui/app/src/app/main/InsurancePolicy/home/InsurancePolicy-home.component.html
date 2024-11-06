@@ -1,0 +1,46 @@
+<o-form-layout-manager attr="InsurancePolicy" mode="tab" title="INSURANCEPOLICY">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="InsurancePolicyTable" 
+            service="InsurancePolicy" 
+            entity="InsurancePolicy" 
+            title="INSURANCEPOLICY"
+            keys="id"
+            columns="provider_name;trailer_id;policy_number;coverage_amount;id" 
+            header-actions="R;D"
+            visible-columns="provider_name;trailer_id;policy_number;coverage_amount;id"  
+            sort-columns="provider_name" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #provider_name attr="provider_name" title=" provider_name*" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column attr="trailer_id" title="trailer_id">
+    <o-table-cell-renderer-service attr="trailer_id" 
+        service="Trailer" entity="TrailerType" columns="id;id"
+        parent-keys="id:trailer_id"
+        value-column="id" keys="trailer_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column #policy_number attr="policy_number" title="policy_number" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #coverage_amount attr="coverage_amount" title="coverage_amount" type="currency" editable="no" required="yes" currency-symbol="$" currency-symbol-position="left" thousand-separator=","decimal-separator="."></o-table-column>
+            
+            <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

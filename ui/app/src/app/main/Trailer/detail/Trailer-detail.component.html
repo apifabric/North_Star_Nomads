@@ -1,0 +1,366 @@
+<div class="container">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="id" breadcrumb-separator=", " class="fill-form">
+      <o-form #form attr="Trailer_form_edit" 
+        service="Trailer" 
+        entity="Trailer" 
+        fxLayout="column" 
+        show-header="yes" 
+        header-actions="R;I;U;D"
+        #oDetailForm keys="id" 
+        keys-sql-types="INTEGER" 
+        show-header-navigation="yes"
+        (onDataLoaded)="onDataLoaded($event)">
+
+  <o-row attr="row1" layout-align="start stretch">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+      
+      <o-integer-input #id attr="id" label=" id*" type="integer" editable="no" required="no" ></o-integer-input>
+      
+      <o-list-picker 
+        attr="owner_id"
+        service="Customer" 
+        entity="CustomerType"
+        fxFlex="30" 
+        query-on-init="no" 
+        query-on-bind="yes" 
+        required="yes" 
+        enabled="yes" 
+        filter="yes"
+        value-column="id" 
+        value-column-type="INTEGER"  
+        keys="id" 
+        columns="id;owner_id;name" 
+        title="owner_id"
+        visible-columns="id;name" 
+        separator=" - " width="680px" class="form-field">
+</o-list-picker>
+      
+      <o-text-input #model attr="model" label="model" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-text-input #make attr="make" label="make" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-integer-input #year attr="year" label="year" type="integer" editable="no" required="yes" ></o-integer-input>
+      
+    </div>
+  </o-row>
+      
+      <mat-tab-group fxFill>
+        
+        <mat-tab label="HAULINGJOB-trailer_id">
+    <div layout-padding>
+      <o-table 
+        attr="HaulingJobTable" 
+        service="HaulingJob" 
+        entity="HaulingJob" 
+        keys="id"
+        parent-keys="trailer_id:id"
+        columns="id;trailer_id;pickup_location;dropoff_location;date_initiated;completed"  
+        horizontal-scroll="yes"
+        detail-form-route="HaulingJob" 
+        edit-form-route="HaulingJob"
+        visible-columns="id;trailer_id;pickup_location;dropoff_location;date_initiated;completed"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="trailer_id" title="trailer_id">
+    <o-table-cell-renderer-service attr="trailer_id" 
+        service="Trailer" entity="TrailerType" columns="id;id"
+        parent-keys="id:trailer_id"
+        value-column="id" keys="trailer_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #pickup_location attr="pickup_location" title="pickup_location" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column #dropoff_location attr="dropoff_location" title="dropoff_location" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column #date_initiated attr="date_initiated" title="date_initiated" editable="no" required="no" content-align="left"></o-table-column>
+        
+          <o-table-column #completed attr="completed" title="completed" editable="no" required="no" content-align="left"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="INSPECTION-trailer_id">
+    <div layout-padding>
+      <o-table 
+        attr="InspectionTable" 
+        service="Inspection" 
+        entity="Inspection" 
+        keys="id"
+        parent-keys="trailer_id:id"
+        columns="inspector_name;trailer_id;findings;id;date_performed;passed"  
+        horizontal-scroll="yes"
+        detail-form-route="Inspection" 
+        edit-form-route="Inspection"
+        visible-columns="inspector_name;trailer_id;findings;id;date_performed;passed"  
+        sort-columns="inspector_name" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #inspector_name attr="inspector_name" title=" inspector_name*" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column attr="trailer_id" title="trailer_id">
+    <o-table-cell-renderer-service attr="trailer_id" 
+        service="Trailer" entity="TrailerType" columns="id;id"
+        parent-keys="id:trailer_id"
+        value-column="id" keys="trailer_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #findings attr="findings" title="findings" editable="no" required="no" content-align="left"></o-table-column>
+        
+          <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column #date_performed attr="date_performed" title="date_performed" editable="no" required="no" content-align="left"></o-table-column>
+        
+          <o-table-column #passed attr="passed" title="passed" editable="no" required="yes" content-align="left"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="INSURANCEPOLICY-trailer_id">
+    <div layout-padding>
+      <o-table 
+        attr="InsurancePolicyTable" 
+        service="InsurancePolicy" 
+        entity="InsurancePolicy" 
+        keys="id"
+        parent-keys="trailer_id:id"
+        columns="provider_name;trailer_id;policy_number;coverage_amount;id"  
+        horizontal-scroll="yes"
+        detail-form-route="InsurancePolicy" 
+        edit-form-route="InsurancePolicy"
+        visible-columns="provider_name;trailer_id;policy_number;coverage_amount;id"  
+        sort-columns="provider_name" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #provider_name attr="provider_name" title=" provider_name*" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column attr="trailer_id" title="trailer_id">
+    <o-table-cell-renderer-service attr="trailer_id" 
+        service="Trailer" entity="TrailerType" columns="id;id"
+        parent-keys="id:trailer_id"
+        value-column="id" keys="trailer_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #policy_number attr="policy_number" title="policy_number" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column #coverage_amount attr="coverage_amount" title="coverage_amount" type="currency" editable="no" required="yes" currency-symbol="$" currency-symbol-position="left" thousand-separator=","decimal-separator="."></o-table-column>
+        
+          <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="MAINTENANCELOG-trailer_id">
+    <div layout-padding>
+      <o-table 
+        attr="MaintenanceLogTable" 
+        service="MaintenanceLog" 
+        entity="MaintenanceLog" 
+        keys="id"
+        parent-keys="trailer_id:id"
+        columns="id;trailer_id;activity_detail;status;date_scheduled"  
+        horizontal-scroll="yes"
+        detail-form-route="MaintenanceLog" 
+        edit-form-route="MaintenanceLog"
+        visible-columns="id;trailer_id;activity_detail;status;date_scheduled"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="trailer_id" title="trailer_id">
+    <o-table-cell-renderer-service attr="trailer_id" 
+        service="Trailer" entity="TrailerType" columns="id;id"
+        parent-keys="id:trailer_id"
+        value-column="id" keys="trailer_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #activity_detail attr="activity_detail" title="activity_detail" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column #status attr="status" title="status" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column #date_scheduled attr="date_scheduled" title="date_scheduled" editable="no" required="no" content-align="left"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="REPAIRHISTORY-trailer_id">
+    <div layout-padding>
+      <o-table 
+        attr="RepairHistoryTable" 
+        service="RepairHistory" 
+        entity="RepairHistory" 
+        keys="id"
+        parent-keys="trailer_id:id"
+        columns="description;trailer_id;repair_date;cost;id"  
+        horizontal-scroll="yes"
+        detail-form-route="RepairHistory" 
+        edit-form-route="RepairHistory"
+        visible-columns="description;trailer_id;repair_date;cost;id"  
+        sort-columns="description" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #description attr="description" title=" description*" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column attr="trailer_id" title="trailer_id">
+    <o-table-cell-renderer-service attr="trailer_id" 
+        service="Trailer" entity="TrailerType" columns="id;id"
+        parent-keys="id:trailer_id"
+        value-column="id" keys="trailer_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-date-input #repair_date attr="repair_date" type="timestamp" label="repair_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+        
+          <o-table-column #cost attr="cost" title="cost" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+          <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="SERVICEREPORT-trailer_id">
+    <div layout-padding>
+      <o-table 
+        attr="ServiceReportTable" 
+        service="ServiceReport" 
+        entity="ServiceReport" 
+        keys="id"
+        parent-keys="trailer_id:id"
+        columns="id;provider_id;trailer_id;service_type;performed_on;cost"  
+        horizontal-scroll="yes"
+        detail-form-route="ServiceReport" 
+        edit-form-route="ServiceReport"
+        visible-columns="id;provider_id;trailer_id;service_type;performed_on;cost"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="provider_id" title="provider_id">
+    <o-table-cell-renderer-service attr="provider_id" 
+        service="ServiceProvider" entity="ServiceProviderType" columns="id;name"
+        parent-keys="id:provider_id"
+        value-column="name" keys="provider_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column attr="trailer_id" title="trailer_id">
+    <o-table-cell-renderer-service attr="trailer_id" 
+        service="Trailer" entity="TrailerType" columns="id;id"
+        parent-keys="id:trailer_id"
+        value-column="id" keys="trailer_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #service_type attr="service_type" title="service_type" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column #performed_on attr="performed_on" title="performed_on" editable="no" required="no" content-align="left"></o-table-column>
+        
+          <o-table-column #cost attr="cost" title="cost" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+      </mat-tab-group>
+      
+    </o-form>
+  </o-form-container>
+</div>

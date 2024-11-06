@@ -1,0 +1,55 @@
+<o-form-layout-manager attr="ServiceReport" mode="tab" title="SERVICEREPORT">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="ServiceReportTable" 
+            service="ServiceReport" 
+            entity="ServiceReport" 
+            title="SERVICEREPORT"
+            keys="id"
+            columns="id;provider_id;trailer_id;service_type;performed_on;cost" 
+            header-actions="R;D"
+            visible-columns="id;provider_id;trailer_id;service_type;performed_on;cost"  
+            sort-columns="id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="provider_id" title="provider_id">
+    <o-table-cell-renderer-service attr="provider_id" 
+        service="ServiceProvider" entity="ServiceProviderType" columns="id;name"
+        parent-keys="id:provider_id"
+        value-column="name" keys="provider_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="trailer_id" title="trailer_id">
+    <o-table-cell-renderer-service attr="trailer_id" 
+        service="Trailer" entity="TrailerType" columns="id;id"
+        parent-keys="id:trailer_id"
+        value-column="id" keys="trailer_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column #service_type attr="service_type" title="service_type" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #performed_on attr="performed_on" title="performed_on" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #cost attr="cost" title="cost" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

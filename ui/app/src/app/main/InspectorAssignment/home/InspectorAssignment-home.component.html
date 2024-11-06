@@ -1,0 +1,49 @@
+<o-form-layout-manager attr="InspectorAssignment" mode="tab" title="INSPECTORASSIGNMENT">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="InspectorAssignmentTable" 
+            service="InspectorAssignment" 
+            entity="InspectorAssignment" 
+            title="INSPECTORASSIGNMENT"
+            keys="id"
+            columns="id;inspection_id;provider_id" 
+            header-actions="R;D"
+            visible-columns="id;inspection_id;provider_id"  
+            sort-columns="id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="inspection_id" title="inspection_id">
+    <o-table-cell-renderer-service attr="inspection_id" 
+        service="Inspection" entity="InspectionType" columns="id;inspector_name"
+        parent-keys="id:inspection_id"
+        value-column="inspector_name" keys="inspection_id"
+        visible-columns="inspector_name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="provider_id" title="provider_id">
+    <o-table-cell-renderer-service attr="provider_id" 
+        service="ServiceProvider" entity="ServiceProviderType" columns="id;name"
+        parent-keys="id:provider_id"
+        value-column="name" keys="provider_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

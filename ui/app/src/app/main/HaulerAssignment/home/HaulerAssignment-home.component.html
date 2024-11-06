@@ -1,0 +1,49 @@
+<o-form-layout-manager attr="HaulerAssignment" mode="tab" title="HAULERASSIGNMENT">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="HaulerAssignmentTable" 
+            service="HaulerAssignment" 
+            entity="HaulerAssignment" 
+            title="HAULERASSIGNMENT"
+            keys="id"
+            columns="id;job_id;provider_id" 
+            header-actions="R;D"
+            visible-columns="id;job_id;provider_id"  
+            sort-columns="id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="job_id" title="job_id">
+    <o-table-cell-renderer-service attr="job_id" 
+        service="HaulingJob" entity="HaulingJobType" columns="id;id"
+        parent-keys="id:job_id"
+        value-column="id" keys="job_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="provider_id" title="provider_id">
+    <o-table-cell-renderer-service attr="provider_id" 
+        service="ServiceProvider" entity="ServiceProviderType" columns="id;name"
+        parent-keys="id:provider_id"
+        value-column="name" keys="provider_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

@@ -1,0 +1,568 @@
+about:
+  date: November 06, 2024 21:07:32
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  Customer:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: email
+      template: text
+      type: VARCHAR
+    - name: phone
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Stores information about customers who own the trailers.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Stores information about customers who own the trailers.
+    label: Customer
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - owner_id
+      name: TrailerList
+      resource: Trailer
+    type: Customer
+  FeeSchedule:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: service_type
+      required: true
+      template: text
+      type: VARCHAR
+    - name: rate
+      required: true
+      template: real
+      type: FLOAT
+    description: Charges for different services provided, such as hauling and inspections.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Charges for different services provided, such as hauling and inspections.
+    label: FeeSchedule
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: FeeSchedule
+  HaulerAssignment:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: job_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: provider_id
+      required: true
+      template: integer
+      type: INTEGER
+    description: Records which hauling jobs are assigned to which service providers.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Records which hauling jobs are assigned to which service providers.
+    label: HaulerAssignment
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - job_id
+      name: job
+      resource: HaulingJob
+    - direction: toone
+      fks:
+      - provider_id
+      name: provider
+      resource: ServiceProvider
+    type: HaulerAssignment
+  HaulingJob:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: trailer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: pickup_location
+      required: true
+      template: text
+      type: VARCHAR
+    - name: dropoff_location
+      required: true
+      template: text
+      type: VARCHAR
+    - name: date_initiated
+      type: DATETIME
+    - name: completed
+      template: text
+      type: BOOLEAN
+    description: Details on each hauling service provided for trailers.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Details on each hauling service provided for trailers.
+    label: HaulingJob
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - job_id
+      name: HaulerAssignmentList
+      resource: HaulerAssignment
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: HaulingJob
+  Inspection:
+    columns:
+    - label: ' inspector_name*'
+      name: inspector_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: trailer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: findings
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    - name: date_performed
+      type: DATETIME
+    - name: passed
+      required: true
+      template: text
+      type: BOOLEAN
+    description: Stores results of trailer inspections.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: inspector_name
+    home_template: home_template.html
+    info_list: Stores results of trailer inspections.
+    label: Inspection
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - inspection_id
+      name: InspectorAssignmentList
+      resource: InspectorAssignment
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: Inspection
+  InspectorAssignment:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: inspection_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: provider_id
+      required: true
+      template: integer
+      type: INTEGER
+    description: Links inspections to the service providers assigned to them.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Links inspections to the service providers assigned to them.
+    label: InspectorAssignment
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - inspection_id
+      name: inspection
+      resource: Inspection
+    - direction: toone
+      fks:
+      - provider_id
+      name: provider
+      resource: ServiceProvider
+    type: InspectorAssignment
+  InsurancePolicy:
+    columns:
+    - label: ' provider_name*'
+      name: provider_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: trailer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: policy_number
+      required: true
+      template: text
+      type: VARCHAR
+    - name: coverage_amount
+      required: true
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Insurance policies associated with trailers.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: provider_name
+    home_template: home_template.html
+    info_list: Insurance policies associated with trailers.
+    label: InsurancePolicy
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: InsurancePolicy
+  MaintenanceLog:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: trailer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: activity_detail
+      required: true
+      template: text
+      type: VARCHAR
+    - name: status
+      required: true
+      template: text
+      type: VARCHAR
+    - name: date_scheduled
+      type: DATETIME
+    description: Records ongoing maintenance activities and their status.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Records ongoing maintenance activities and their status.
+    label: MaintenanceLog
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: MaintenanceLog
+  RepairHistory:
+    columns:
+    - label: ' description*'
+      name: description
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: trailer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: repair_date
+      type: DATETIME
+    - name: cost
+      required: true
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Detailed log of repairs made to trailers.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: description
+    home_template: home_template.html
+    info_list: Detailed log of repairs made to trailers.
+    label: RepairHistory
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: RepairHistory
+  ServiceProvider:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: phone
+      template: text
+      type: VARCHAR
+    - name: is_hauler
+      template: text
+      type: BOOLEAN
+    - name: is_inspector
+      template: text
+      type: BOOLEAN
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Details of service providers performing hauling or inspections.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Details of service providers performing hauling or inspections.
+    label: ServiceProvider
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - provider_id
+      name: HaulerAssignmentList
+      resource: HaulerAssignment
+    - direction: tomany
+      fks:
+      - provider_id
+      name: InspectorAssignmentList
+      resource: InspectorAssignment
+    - direction: tomany
+      fks:
+      - provider_id
+      name: ServiceReportList
+      resource: ServiceReport
+    type: ServiceProvider
+  ServiceReport:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: provider_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: trailer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: service_type
+      required: true
+      template: text
+      type: VARCHAR
+    - name: performed_on
+      type: DATETIME
+    - name: cost
+      required: true
+      template: real
+      type: FLOAT
+    description: Detailed reports of every service provided, including cost and service
+      type.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Detailed reports of every service provided, including cost and service
+      type.
+    label: ServiceReport
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - provider_id
+      name: provider
+      resource: ServiceProvider
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: ServiceReport
+  Trailer:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: owner_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: model
+      required: true
+      template: text
+      type: VARCHAR
+    - name: make
+      required: true
+      template: text
+      type: VARCHAR
+    - name: year
+      required: true
+      template: integer
+      type: INTEGER
+    description: Represents individual trailers with their specifications.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Represents individual trailers with their specifications.
+    label: Trailer
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: HaulingJobList
+      resource: HaulingJob
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: InspectionList
+      resource: Inspection
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: InsurancePolicyList
+      resource: InsurancePolicy
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: MaintenanceLogList
+      resource: MaintenanceLog
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: RepairHistoryList
+      resource: RepairHistory
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: ServiceReportList
+      resource: ServiceReport
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Customer
+    type: Trailer
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: false

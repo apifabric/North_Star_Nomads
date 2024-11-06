@@ -1,0 +1,116 @@
+{
+    "name": "RV Pro Haulers & Inspectors",
+    "logo": {
+        "Type": "Logo",
+        "name": "RV Pro Haulers Logo",
+        "description": "RV Pro Haulers company logo featuring a stylized RV illustration"
+    },
+    "sections": [
+        {
+            "title": "Experience hassle-free RV transport and inspection",
+            "subtitle": "Your trusted partner for 5th wheels and travel trailers",
+            "name": "hero",
+            "label": "Home",
+            "content": "\nWelcome to RV Pro Haulers & Inspectors, where your home on wheels is our top priority. Whether you\u2019re moving to a new location or simply need a thorough inspection, we\u2019ve got you covered with reliable and efficient services that ensure your journey is safe and smooth.\n",
+            "order": 1,
+            "Type": "Hero",
+            "images": [
+                {
+                    "Type": "Hero",
+                    "name": "Main Banner",
+                    "description": "A scenic road with a 5th wheel trailer being hauled by a truck"
+                }
+            ]
+        },
+        {
+            "title": "About Us",
+            "subtitle": "",
+            "name": "about",
+            "label": "About",
+            "content": "\nAt RV Pro Haulers & Inspectors, we are dedicated to providing top-tier hauling and inspection services for RV enthusiasts. With over a decade of experience, our team of certified experts ensures that every 5th wheel and travel trailer receives unparalleled care, attention to detail, and service excellence.\n",
+            "order": 2,
+            "Type": "About",
+            "images": [
+                {
+                    "Type": "Infographic",
+                    "name": "Our Journey",
+                    "description": "Timeline of the company\u2019s history and growth"
+                }
+            ]
+        },
+        {
+            "title": "Our Services",
+            "subtitle": "",
+            "name": "services",
+            "label": "Services",
+            "content": "\n### Hauling Services  \n- **Comprehensive Transport**: Secure and reliable transport for 5th wheels and travel trailers, ensuring peace of mind.\n- **Flexible Scheduling**: Tailor your transport plans with our flexible timetable.\n\n### Inspection Services  \n- **Detailed Inspections**: Comprehensive checks covering all safety and operational aspects of your RV.\n- **Certified Professionals**: Our inspectors are trained to spot and rectify potential issues, enhancing your RV\u2019s performance.\n",
+            "order": 3,
+            "Type": "Services",
+            "images": [
+                {
+                    "Type": "ItemListing",
+                    "name": "Hauling Fleet",
+                    "description": "Images of the hauling vehicles used by the company"
+                },
+                {
+                    "Type": "ItemListing",
+                    "name": "Inspection Process",
+                    "description": "Visual representation of the inspection workflow"
+                }
+            ]
+        },
+        {
+            "title": "Why Choose Us?",
+            "subtitle": "",
+            "name": "features",
+            "label": "Why Us",
+            "content": "\n- **Expert Team**: Our team possesses unmatched expertise in RV handling and inspection.\n- **Customer Satisfaction**: We\u2019re dedicated to ensuring our clients\u2019 satisfaction through quality service.\n- **Affordability**: We provide top-tier services at competitive rates.\n",
+            "order": 4,
+            "Type": "CallToAction",
+            "images": [
+                {
+                    "Type": "Infographic",
+                    "name": "Benefits",
+                    "description": "Graphic showcasing the benefits of choosing RV Pro Haulers & Inspectors"
+                }
+            ]
+        },
+        {
+            "title": "Customer Testimonials",
+            "subtitle": "",
+            "name": "testimonials",
+            "label": "Testimonials",
+            "content": "\n> \"RV Pro Haulers handled everything smoothly! Their inspection saved us a ton in repairs down the road.\"  \n> **- James M.**\n\n> \"Fast, efficient, and friendly service. I wouldn't trust anyone else with my trailer.\"  \n> **- Sarah L.**\n",
+            "order": 5,
+            "Type": "Testimonials",
+            "images": [
+                {
+                    "Type": "Testimonial",
+                    "name": "James M.",
+                    "description": "Smiling customer standing next to his RV"
+                },
+                {
+                    "Type": "Testimonial",
+                    "name": "Sarah L.",
+                    "description": "Happy customer outside her inspected trailer"
+                }
+            ]
+        },
+        {
+            "title": "Contact Us",
+            "subtitle": "",
+            "name": "contact",
+            "label": "Contact",
+            "content": "\n*Your comfort and convenience are our top priorities. Get in touch with us for any transport or inspection needs!*\n\n- **Phone**: (123) 456-7890\n- **Email**: contact@rvprohaulers.com\n- **Address**: 123 RV Lane, Travel City, TX\n- **Operating Hours**: Mon-Fri: 9 am - 6 pm\n",
+            "order": 6,
+            "Type": "Contact",
+            "images": [
+                {
+                    "Type": "Map",
+                    "name": "Office Location",
+                    "description": "Map showing the location of RV Pro Haulers & Inspectors office"
+                }
+            ]
+        }
+    ]
+}

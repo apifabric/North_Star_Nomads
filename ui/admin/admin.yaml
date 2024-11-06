@@ -1,0 +1,376 @@
+about:
+  date: November 06, 2024 21:07:32
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 12
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  Customer:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: email
+    - name: phone
+    - name: id
+    description: Stores information about customers who own the trailers.
+    info_list: Stores information about customers who own the trailers.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - owner_id
+      name: TrailerList
+      resource: Trailer
+    type: Customer
+    user_key: name
+  FeeSchedule:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: service_type
+      required: true
+    - name: rate
+      required: true
+    description: Charges for different services provided, such as hauling and inspections.
+    info_list: Charges for different services provided, such as hauling and inspections.
+    type: FeeSchedule
+    user_key: id
+  HaulerAssignment:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: job_id
+      required: true
+    - name: provider_id
+      required: true
+    description: Records which hauling jobs are assigned to which service providers.
+    info_list: Records which hauling jobs are assigned to which service providers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - job_id
+      name: job
+      resource: HaulingJob
+    - direction: toone
+      fks:
+      - provider_id
+      name: provider
+      resource: ServiceProvider
+    type: HaulerAssignment
+    user_key: id
+  HaulingJob:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: trailer_id
+      required: true
+    - name: pickup_location
+      required: true
+    - name: dropoff_location
+      required: true
+    - name: date_initiated
+      type: DATETIME
+    - name: completed
+    description: Details on each hauling service provided for trailers.
+    info_list: Details on each hauling service provided for trailers.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - job_id
+      name: HaulerAssignmentList
+      resource: HaulerAssignment
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: HaulingJob
+    user_key: id
+  Inspection:
+    attributes:
+    - label: ' inspector_name*'
+      name: inspector_name
+      required: true
+      search: true
+      sort: true
+    - name: trailer_id
+      required: true
+    - name: findings
+    - name: id
+    - name: date_performed
+      type: DATETIME
+    - name: passed
+      required: true
+    description: Stores results of trailer inspections.
+    info_list: Stores results of trailer inspections.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - inspection_id
+      name: InspectorAssignmentList
+      resource: InspectorAssignment
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: Inspection
+    user_key: inspector_name
+  InspectorAssignment:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: inspection_id
+      required: true
+    - name: provider_id
+      required: true
+    description: Links inspections to the service providers assigned to them.
+    info_list: Links inspections to the service providers assigned to them.
+    tab_groups:
+    - direction: toone
+      fks:
+      - inspection_id
+      name: inspection
+      resource: Inspection
+    - direction: toone
+      fks:
+      - provider_id
+      name: provider
+      resource: ServiceProvider
+    type: InspectorAssignment
+    user_key: id
+  InsurancePolicy:
+    attributes:
+    - label: ' provider_name*'
+      name: provider_name
+      required: true
+      search: true
+      sort: true
+    - name: trailer_id
+      required: true
+    - name: policy_number
+      required: true
+    - name: coverage_amount
+      required: true
+    - name: id
+    description: Insurance policies associated with trailers.
+    info_list: Insurance policies associated with trailers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: InsurancePolicy
+    user_key: provider_name
+  MaintenanceLog:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: trailer_id
+      required: true
+    - name: activity_detail
+      required: true
+    - name: status
+      required: true
+    - name: date_scheduled
+      type: DATETIME
+    description: Records ongoing maintenance activities and their status.
+    info_list: Records ongoing maintenance activities and their status.
+    tab_groups:
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: MaintenanceLog
+    user_key: id
+  RepairHistory:
+    attributes:
+    - label: ' description*'
+      name: description
+      required: true
+      search: true
+      sort: true
+    - name: trailer_id
+      required: true
+    - name: repair_date
+      type: DATETIME
+    - name: cost
+      required: true
+    - name: id
+    description: Detailed log of repairs made to trailers.
+    info_list: Detailed log of repairs made to trailers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: RepairHistory
+    user_key: description
+  ServiceProvider:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: phone
+    - name: is_hauler
+    - name: is_inspector
+    - name: id
+    description: Details of service providers performing hauling or inspections.
+    info_list: Details of service providers performing hauling or inspections.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - provider_id
+      name: HaulerAssignmentList
+      resource: HaulerAssignment
+    - direction: tomany
+      fks:
+      - provider_id
+      name: InspectorAssignmentList
+      resource: InspectorAssignment
+    - direction: tomany
+      fks:
+      - provider_id
+      name: ServiceReportList
+      resource: ServiceReport
+    type: ServiceProvider
+    user_key: name
+  ServiceReport:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: provider_id
+      required: true
+    - name: trailer_id
+      required: true
+    - name: service_type
+      required: true
+    - name: performed_on
+      type: DATETIME
+    - name: cost
+      required: true
+    description: Detailed reports of every service provided, including cost and service
+      type.
+    info_list: Detailed reports of every service provided, including cost and service
+      type.
+    tab_groups:
+    - direction: toone
+      fks:
+      - provider_id
+      name: provider
+      resource: ServiceProvider
+    - direction: toone
+      fks:
+      - trailer_id
+      name: trailer
+      resource: Trailer
+    type: ServiceReport
+    user_key: id
+  Trailer:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: owner_id
+      required: true
+    - name: model
+      required: true
+    - name: make
+      required: true
+    - name: year
+      required: true
+    description: Represents individual trailers with their specifications.
+    info_list: Represents individual trailers with their specifications.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: HaulingJobList
+      resource: HaulingJob
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: InspectionList
+      resource: Inspection
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: InsurancePolicyList
+      resource: InsurancePolicy
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: MaintenanceLogList
+      resource: MaintenanceLog
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: RepairHistoryList
+      resource: RepairHistory
+    - direction: tomany
+      fks:
+      - trailer_id
+      name: ServiceReportList
+      resource: ServiceReport
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Customer
+    type: Trailer
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

@@ -1,0 +1,39 @@
+<o-form-layout-manager attr="ServiceProvider" mode="tab" title="SERVICEPROVIDER">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="ServiceProviderTable" 
+            service="ServiceProvider" 
+            entity="ServiceProvider" 
+            title="SERVICEPROVIDER"
+            keys="id"
+            columns="name;phone;is_hauler;is_inspector;id" 
+            header-actions="R;D"
+            visible-columns="name;phone;is_hauler;is_inspector;id"  
+            sort-columns="name" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #name attr="name" title=" name*" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #phone attr="phone" title="phone" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #is_hauler attr="is_hauler" title="is_hauler" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #is_inspector attr="is_inspector" title="is_inspector" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

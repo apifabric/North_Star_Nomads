@@ -1,0 +1,128 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+// Or, view in VSCode with extension: "DBML Live Preview"
+
+Project DBML {
+  Note: '''
+Customer: Stores information about customers who own the trailers.
+FeeSchedule: Charges for different services provided, such as hauling and inspections.
+HaulerAssignment: Records which hauling jobs are assigned to which service providers.
+HaulingJob: Details on each hauling service provided for trailers.
+ServiceProvider: Details of service providers performing hauling or inspections.
+Trailer: Represents individual trailers with their specifications.
+Inspection: Stores results of trailer inspections.
+InspectorAssignment: Links inspections to the service providers assigned to them.
+InsurancePolicy: Insurance policies associated with trailers.
+MaintenanceLog: Records ongoing maintenance activities and their status.
+RepairHistory: Detailed log of repairs made to trailers.
+ServiceReport: Detailed reports of every service provided, including cost and service type.
+'''
+}
+
+Table Customer {
+    id INTEGER [primary key]
+    name VARCHAR 
+    email VARCHAR 
+    phone VARCHAR 
+    }
+
+Table FeeSchedule {
+    id INTEGER [primary key]
+    service_type VARCHAR 
+    rate FLOAT 
+    }
+
+Table HaulerAssignment {
+    id INTEGER [primary key]
+    job_id INTEGER 
+    provider_id INTEGER 
+    }
+
+Table HaulingJob {
+    id INTEGER [primary key]
+    trailer_id INTEGER 
+    pickup_location VARCHAR 
+    dropoff_location VARCHAR 
+    date_initiated DATETIME 
+    completed BOOLEAN 
+    }
+
+Table ServiceProvider {
+    id INTEGER [primary key]
+    name VARCHAR 
+    phone VARCHAR 
+    is_hauler BOOLEAN 
+    is_inspector BOOLEAN 
+    }
+
+Table Trailer {
+    id INTEGER [primary key]
+    owner_id INTEGER 
+    model VARCHAR 
+    make VARCHAR 
+    year INTEGER 
+    }
+
+Table Inspection {
+    id INTEGER [primary key]
+    trailer_id INTEGER 
+    date_performed DATETIME 
+    inspector_name VARCHAR 
+    passed BOOLEAN 
+    findings VARCHAR 
+    }
+
+Table InspectorAssignment {
+    id INTEGER [primary key]
+    inspection_id INTEGER 
+    provider_id INTEGER 
+    }
+
+Table InsurancePolicy {
+    id INTEGER [primary key]
+    trailer_id INTEGER 
+    policy_number VARCHAR 
+    provider_name VARCHAR 
+    coverage_amount FLOAT 
+    }
+
+Table MaintenanceLog {
+    id INTEGER [primary key]
+    trailer_id INTEGER 
+    activity_detail VARCHAR 
+    date_scheduled DATETIME 
+    status VARCHAR 
+    }
+
+Table RepairHistory {
+    id INTEGER [primary key]
+    trailer_id INTEGER 
+    repair_date DATETIME 
+    description VARCHAR 
+    cost FLOAT 
+    }
+
+Table ServiceReport {
+    id INTEGER [primary key]
+    service_type VARCHAR 
+    performed_on DATETIME 
+    provider_id INTEGER 
+    trailer_id INTEGER 
+    cost FLOAT 
+    }
+
+
+
+// Relationships
+    Ref: HaulerAssignment.(job_id) < HaulingJob.(id)
+    Ref: HaulerAssignment.(provider_id) < ServiceProvider.(id)
+    Ref: HaulingJob.(trailer_id) < Trailer.(id)
+    Ref: Trailer.(owner_id) < Customer.(id)
+    Ref: Inspection.(trailer_id) < Trailer.(id)
+    Ref: InspectorAssignment.(inspection_id) < Inspection.(id)
+    Ref: InspectorAssignment.(provider_id) < ServiceProvider.(id)
+    Ref: InsurancePolicy.(trailer_id) < Trailer.(id)
+    Ref: MaintenanceLog.(trailer_id) < Trailer.(id)
+    Ref: RepairHistory.(trailer_id) < Trailer.(id)
+    Ref: ServiceReport.(provider_id) < ServiceProvider.(id)
+    Ref: ServiceReport.(trailer_id) < Trailer.(id)
